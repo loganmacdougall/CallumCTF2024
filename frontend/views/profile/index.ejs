@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../metadata.ejs') %>
+  <link rel="stylesheet" href="/static/css/profile.css">
+  <title>M1337 Designs</title>
+</head>
+<body>
+    <%- include('../header.ejs') %>
+    <img id="profile_picture" src="/static<%= user.profile_picture ?? "/media/profiles/empty.webp" %>" alt="">
+    <h1 id="profile_username"><%= user.username %></h1>
+    <h2 id="profile_title"><%= user.title ?? "Untitled" %></h2>
+    <p id="profile_desc"><%- user.udesc ?? "<i>No Description</i>" %></p>
+</body>
+</html>

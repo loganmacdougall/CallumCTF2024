@@ -1,0 +1,28 @@
+# bottom of stack is i
+
+# for (i = 1; i != 11; i++) {
+
+0 1 ADD
+11 2 DUP 1 POP EQ -99 CJUMP # Out-of-bound instruction - exit program
+
+# if (i < 5) {
+
+5 2 DUP 1 POP LESS NOT 10 CJUMP
+
+# print(i, " is less than 5\n")
+
+1 DUP INTSTRING PRINT " is less than 5\n" PRINT 1 -27 CJUMP
+
+# } else if (i > 5) {
+
+5 2 DUP 1 POP MORE NOT 10 CJUMP
+
+# print(i, " is more than 5\n")
+
+1 DUP INTSTRING PRINT " is more than 5\n" PRINT 1 -45 CJUMP
+
+# } else print(i, " is equal to 5\n")
+
+1 DUP INTSTRING PRINT " is equal to 5\n" PRINT 1 -54 CJUMP
+
+# }

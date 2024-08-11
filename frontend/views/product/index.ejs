@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../metadata.ejs') %>
+  <link rel="stylesheet" href="/static/css/product.css">
+  <title>M1337 Designs</title>
+</head>
+<body>
+    <%- include('../header.ejs') %>
+    <section id="product">
+      <div id="product-images">
+        <% if (product.photos) product.photos.forEach((photo, index) => { %>
+          
+          <img class="product-image<%= index == 0 ? " active" : "" %>" src="/static<%= photo %>" alt="<%= product.title %>">
+          <% }) %>
+        </div>
+        <div id="product-info">
+          <p id="product-title"><%= product.title %></p>
+          <p id="product-desc"><%- product.pdesc %></p>
+          <br>
+          <h2 id="product-price"><%- product.price %></h2>
+          <% if (global_state.promo) { %>
+            <form action="/product" method="get" id="promo-container">
+              <label for="promo">Promo code</label>
+              <input type="text" name="promo" id="promo">
+              <p>Current Promo: <%- promo?.promo_title ?? '<i>None</i>' %>
+              </p>
+              <input type="text" name="id" value="<%= product.id %>" hidden>
+              <input type="submit" value="" hidden>
+            </form>
+          <% } %>
+          <button id="product-buy-button" onclick="buyNow(id=<%= product.id %>)">Buy Now</button>
+        </div>
+      </section>
+        <script src="/static/js/buynow.js"></script>
+      </body>
+</html>

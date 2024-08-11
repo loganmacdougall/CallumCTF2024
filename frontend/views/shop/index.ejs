@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../metadata.ejs') %>
+  <title>M1337 Designs</title>
+</head>
+<body>
+  <%- include('../header.ejs') %>
+  <link rel="stylesheet" href="/static/css/shop.css">
+  <section id="products">
+  <% products.forEach((product) => { %>
+    <a class="product-container" href="/product?id=<%= product.id %>">
+      <img class="product-image" src="/static<%= product.photos[0] %>" alt="<%= product.title %>">
+      <p class="product-title"><%= product.title %></p>
+      <p class="product-price"><strong>$<%= product.price %></strong></p>
+    </a>
+  <% }) %>
+  <% if (products.length === 0) { %>
+    <p>No items found</p>
+  <% } %>
+  </section>
+</body>
+</html>

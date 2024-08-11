@@ -1,0 +1,14 @@
+body {
+  padding: 0.5em;
+  font-family: "Nunito", sans-serif;
+}
+
+header {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+
+header * {
+  margin: 0 1em;
+}

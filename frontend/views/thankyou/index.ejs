@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../metadata.ejs') %>
+  <title>Thank you</title>
+</head>
+<body>
+    <%- include('../header.ejs') %>
+    <h1>
+      Thank you for your purchase
+    </h1>
+    <% if (product) { %>
+      <% if (product.photos.length > 0) { %>
+      <img class="product-image" src="/static<%= product.photos[0] %>" alt="<%= product.title %>">
+      <% } %>
+      <h2><%= product.title %></h2>
+    <% } %>
+    <a href="/shop">Keep shopping</a>
+</body>
+</html>

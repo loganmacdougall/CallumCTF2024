@@ -1,0 +1,11 @@
+# Program should print 7
+
+"Result: " PRINT
+
+3    # |3|
+5    # |3|5|
+2    # |3|5|2|
+MULT # |3|10|
+SUB  # |7|
+
+INTSTRING PRINT "\n" PRINT

@@ -1,0 +1,14 @@
+FROM node:slim
+
+WORKDIR /express-docker
+
+COPY ./package.json .
+RUN npm install
+
+COPY . .
+
+RUN ["mv", "docker.env", ".env"]
+
+CMD [ "node", "--env-file=.env", "index.js" ]
+
+EXPOSE 3000

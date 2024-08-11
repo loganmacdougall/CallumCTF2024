@@ -1,0 +1,27 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+  database:
+    image: mysql
+    ports:
+      - "3636:3306"
+    expose:
+      - "3636"
+    restart: always
+    environment:
+      MYSQL_DATABASE: m1337Shirts
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: qV2qe9nXZjQ0c4CT
+      MYSQL_ROOT_PASSWORD: BHBU2p2ChyY9ctVxKyIxlZ4gqL5tpQrg
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+  insider:
+    build: ./insider
+    ports:
+      - "8877:8877"
+    expose:
+      - "8877"

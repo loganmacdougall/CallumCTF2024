@@ -1,0 +1,26 @@
+#product {
+  display: flex;
+}
+
+.product-image {
+  display: none;
+  width: 500px;
+  height: 600px;
+}
+
+.product-image:where(.active) {
+  display: inline-block;
+}
+
+#product-info {
+  padding: 1em;
+}
+
+#product-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#promo-container {
+  padding: 0.5em;
+}
