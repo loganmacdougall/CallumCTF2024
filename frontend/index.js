@@ -7,7 +7,11 @@ const app = express()
 
 const port = 3000
 
-const global_state = {promo: true}
+const global_state = {
+  promo: false,
+  guns: true,
+  seized: false
+}
 
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1) // trust first proxy
@@ -34,7 +38,7 @@ app.get('/shop', async (req, res) => {
   let search = req.query.search
   if (search == undefined) search = null
 
-  const products = await conn.getProducts(max_photos=1, search=search)
+  const products = await conn.getProducts(max_photos=1, search=search, guns=global_state.guns)
   res.render('shop', {session: req.session, products: products, global_state: global_state})
 })
 
@@ -73,7 +77,7 @@ app.get('/product', async (req, res) => {
       photos: ["/media/products/handshake.webp"]
     }
   } else {
-    product = await conn.getProduct(id)
+    product = await conn.getProduct(id, max_photo=null, guns=global_state.guns)
     if (product.id == undefined) {
       return res.redirect("/")
     }
@@ -101,7 +105,7 @@ app.post('/buynow', async (req, res) => {
     return res.status(302).send("/inside?key=only_the_know_truly_know")
   }
 
-  let product = await conn.getProduct(req.body.id)
+  let product = await conn.getProduct(req.body.id, max_photos=0, guns=global_state.guns)
 
   if (product == null) {
     return res.sendStatus('404')
@@ -125,7 +129,6 @@ app.post('/login', async (req, res) => {
 
   if (username == undefined || password == undefined) {
     let message = "Didn\'t receive credentials";
-    console.log(message)
     return res.status(400).send(message)
   }
 
@@ -163,7 +166,7 @@ app.get('/thankyou', async (req, res) => {
     return res.redirect("/")
   }
 
-  let product = await conn.getProduct(id)
+  let product = await conn.getProduct(id, max_photos=1, guns=global_state.guns)
   if (product.id == undefined) {
     return res.redirect("/")
   }

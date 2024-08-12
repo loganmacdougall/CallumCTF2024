@@ -20,7 +20,7 @@ services:
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
   insider:
-    build: ./insider
+    build: ./insider/server
     ports:
       - "8877:8877"
     expose:

@@ -30,6 +30,4 @@ form.addEventListener('submit', async (e) => {
 
   let errorMessage = await res.text()
   errorMessageNode.innerHTML = `Error: ${errorMessage}`
-
-  console.log(res)
 })

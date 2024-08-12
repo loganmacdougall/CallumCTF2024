@@ -1,6 +1,7 @@
 go 1.22.6
 
 use (
+	./insider/server
+	./insider/takedown-solver
 	./strack
-	./insider
 )

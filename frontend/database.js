@@ -16,12 +16,27 @@ const pool = mysql.createPool({
   keepAliveInitialDelay: 0,
 });
 
-async function getProducts(max_photos=null, search=null) {
+const gunPool = mysql.createPool({
+  host: process.env.DATABASE_HOST,
+  port: process.env.DATABASE_PORT,
+  user: 'root',
+  password: 'BHBU2p2ChyY9ctVxKyIxlZ4gqL5tpQrg',
+  database: 'm1337Guns',
+  waitForConnections: true,
+  connectionLimit: 10,
+  maxIdle: 10, 
+  idleTimeout: 60000,
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0,
+});
+
+async function getProducts(max_photos=null, search=null, guns=false) {
   if (typeof(search) != 'string') search = ""
   else search = search.replace("!", "!!").replace("%", "!%").replace("_", "!_").replace("[", "![");
   search = '%' + search + '%'
 
-  const conn = await pool.getConnection();
+  const conn = await (guns ? gunPool.getConnection() : pool.getConnection());
 
   try {
     let photos;
@@ -59,9 +74,8 @@ async function getProducts(max_photos=null, search=null) {
   }
 }
 
-async function getProduct(product_id, max_photos=null) {
-  
-  const conn = await pool.getConnection();
+async function getProduct(product_id, max_photos=null, guns=true) {
+  const conn = await (guns ? gunPool.getConnection() : pool.getConnection());
 
   try {
     let photos = [];
@@ -142,8 +156,8 @@ async function getPromo(code) {
 
     promo = rows?.[0]
 
-  } catch (error) {
-    console.log(error)
+  } catch (err) {
+    console.log(err)
   }
 
   pool.releaseConnection(conn)

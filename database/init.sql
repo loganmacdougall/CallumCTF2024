@@ -109,6 +109,7 @@ INSERT INTO promo VALUES ("truth{all_your_db_is_belong_to_us}", "REVEAL TRUTH", 
 CREATE DATABASE m1337Guns;
 USE m1337Guns;
 
+DROP TABLE IF EXISTS product_image;
 DROP TABLE IF EXISTS product;
 
 CREATE TABLE product (
@@ -116,8 +117,15 @@ CREATE TABLE product (
     title tinytext,
     price decimal(6,2),
     pdesc text,
-    imagepath varchar(80),
     PRIMARY KEY (ID)
+);
+
+CREATE TABLE product_image (
+	productId int NOT NULL,
+    filepath varchar(80) NOT NULL,
+    displayOrder int NOT NULL,
+    PRIMARY KEY (filepath),
+    FOREIGN KEY (productId) REFERENCES product(id)
 );
 
 INSERT INTO product (title, price, pdesc) VALUES ("Ak-47", 1199.99, "<strong>Rate of fire</strong><br>
@@ -127,72 +135,84 @@ Cyclic rate: 600 rounds/min Practical rate: Semi-automatic: 40 rounds/min Bursts
 <strong>Effective firing range</strong><br>
 350 m (380 yd)<br>
 <strong>Feed system</strong><br>
-20-round, 30-round, 50-round detachable box magazine, 40-round, 75-round drum magazines also available<br>",
-"/static/media/products/AK47.jpg");
+20-round, 30-round, 50-round detachable box magazine, 40-round, 75-round drum magazines also available<br>");
+INSERT INTO product_image VALUES (1, "/media/products/AK47.jpg", 0);
+
 INSERT INTO product (title, price, pdesc) VALUES ("Winchester Model 1911 Self Loading shotgun", 899.99, "<strong>Caliber</strong><br>
 12 gauge, 16 gauge, 20 gauge, 28 gauge<br>
 <strong>Action</strong><br>
 Long recoil<br>
 <strong>Feed system</strong><br>
 5-round tubular magazine<br>
-<strong>Caliber</strong><br>
-Bead<br>", "/static/media/products/SelfLoadingShotgun.jpg");
+<strong>Caliber</strong><br>Bead<br>");
+INSERT INTO product_image VALUES (2, "/media/products/SelfLoadingShotgun.jpg", 0);
+
 INSERT INTO product (title, price, pdesc) VALUES ("M240 Machine Gun", 8499.99, "<strong>Muzzle velocity</strong><br>
 2,800 ft/s (853 m/s)<br>
 <strong>Effective firing range</strong><br>
-800–1,800 m (875–1,969 yd) depending on mount<br>
+800-1,800 m (875-1,969 yd) depending on mount<br>
 <strong>Maximum firing range</strong><br>
 3,725 m (4,074 yd)<br>
 <strong>Feed system</strong><br>
-Belt-fed using M13 disintegrating links, 50-round ammo pouch, or non-disintegrating DM1 belt<br>",
-"/static/media/products/M240MG.png");
+Belt-fed using M13 disintegrating links, 50-round ammo pouch, or non-disintegrating DM1 belt<br>");
+INSERT INTO product_image VALUES (3, "/media/products/M240MG.png", 0);
+
 INSERT INTO product (title, price, pdesc) VALUES ("HK416", 3499.99, "<strong>Barrel length</strong><br>
-11–20 in (280–510 mm) HK416C: 9 in (230 mm)<br>
+11-20 in (280-510 mm) HK416C: 9 in (230 mm)<br>
 <strong>Width</strong><br>
 78 mm (3.1 in)<br>
 <strong>Height</strong><br>
-236–240 mm (9.3–9.4 in)
+236-240 mm (9.3-9.4 in)<br>
 <strong>Cartridge</strong><br>
-5.56×45mm NATO<br>", "/static/media/products/HK416N.png");
+5.56 x 45mm NATO<br>");
+INSERT INTO product_image VALUES (4, "/media/products/HK416N.png", 0);
+
 INSERT INTO product (title, price, pdesc) VALUES ("M4 Carbine", 599.99, "<strong>Weight</strong><br>
 6.36 lbs<br>
 <strong>Length</strong><br>
 33 in (stock extended)<br>
 <strong>Barrel length</strong><br>
-14.5 in
+14.5 in<br>
 <strong>Caliber</strong><br>
-5.56x45 mm<br>", "/static/media/products/M4Carbine.webp");
+5.56x45 mm<br>");
+INSERT INTO product_image VALUES (5, "/media/products/M4Carbine.webp", 0);
+
 INSERT INTO product (title, price, pdesc) VALUES ("Uzi", 5499.99, "<strong>Weight</strong><br>
 7.72 lb<br>
 <strong>Length</strong><br>
 445 mm (17.5 in) stockless 470 mm (18.5 in) folding stock collapsed 640 mm (25 in) folding stock extended<br>
 <strong>Barrel length</strong><br>
-260 mm (10.2 in)
+260 mm (10.2 in)<br>
 <strong>Cartridge</strong><br>
-.22 LR .41 AE .45 ACP 9×19mm Parabellum 9×21mm IMI<br>", "/static/media/products/uzi.jpg");
+.22 LR .41 AE .45 ACP 9x19mm Parabellum 9x21mm IMI<br>");
+INSERT INTO product_image VALUES (6, "/media/products/uzi.jpg", 0);
+
 INSERT INTO product (title, price, pdesc) VALUES ("RPG-29", 5499.99, "<strong>Mass</strong><br>
 12.1 kg (27 lb) unloaded (with optical sight) 18.8 kg (41 lb) loaded (ready to fire)<br>
 <strong>Length</strong><br>
 1 m (3 ft 3 in) (dismantled for transport) 1.85 m (6 ft 1 in) (ready to fire)<br>
 <strong>Cartridge</strong><br>
-PG-29V tandem rocket TBG-29V thermobaric rounds
+PG-29V tandem rocket TBG-29V thermobaric rounds<br>
 <strong>Caliber</strong><br>
-105 mm (4.1 in) barrel 65 and 105 mm (2.6 and 4.1 in) warheads<br>", "/static/media/products/RPG29.jpg");
+105 mm (4.1 in) barrel 65 and 105 mm (2.6 and 4.1 in) warheads<br>");
+INSERT INTO product_image VALUES (7, "/media/products/RPG29.jpg", 0);
+
 INSERT INTO product (title, price, pdesc) VALUES ("Desert Eagle", 5499.99, "<strong>Mass</strong><br>
 4.4 lb<br>
 <strong>Length</strong><br>
 14.75 in (10 in barrel)<br>
 <strong>Action</strong><br>
-Gas-operated, closed rotating bolt
+Gas-operated, closed rotating bolt<br>
 <strong>Muzzle velocity</strong><br>
-1542 ft/s (470 m/s) (.50 AE)<br>", "/static/media/products/desertEagle.png");
-INSERT INTO product (title, price, pdesc, filepath) VALUES ("McMillan TAC-50C", 11499.99, "<strong>Caliber</strong><br>
+1542 ft/s (470 m/s) (.50 AE)<br>");
+INSERT INTO product_image VALUES (8, "/media/products/desertEagle.png", 0);
+
+INSERT INTO product (title, price, pdesc) VALUES ("McMillan TAC-50C", 9499.99, "<strong>Caliber</strong><br>
 .50 BMG<br>
 <strong>Barrel</strong><br>
 Match Grade, Stainless Steel<br>
 <strong>Length</strong><br>
-56.5 in
+56.5 in<br>
 <strong>Weight</strong><br>
-29 lbs<br>", "/media/products/TAC-50C.jpg");
-
-USE m1337Shirts;
+29 lbs<br>");
+INSERT INTO product_image VALUES (9, "/media/products/TAC-50C.jpg", 0);
