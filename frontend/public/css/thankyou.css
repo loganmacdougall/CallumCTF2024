@@ -10,6 +10,14 @@ h1 {
   font-size: 48px;
 }
 
+img {
+  object-fit: scale-down;
+}
+
+#thankyou-container p {
+  text-align: center;
+}
+
 #product-image-and-title {
   display: flex;
   justify-content: center;
@@ -28,6 +36,7 @@ h1 {
   font-size: 30px;
   width: 275px;
   margin: 30px auto;
+  margin-top: 0px;
   white-space: nowrap;
 }
 

@@ -8,7 +8,7 @@ const app = express()
 const port = 3000
 
 const global_state = {
-  promo: true,
+  promo: false,
   guns: false,
   seized: false
 }
