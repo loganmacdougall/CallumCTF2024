@@ -1,0 +1,21 @@
+html {
+  height: fit-content;
+  min-height: 100%;
+}
+
+body {
+  height: 100%;
+  padding: 20px;
+  background: radial-gradient(circle at center top, #FFC1C1 0%, #FF9A9A 100%);
+  box-sizing: border-box;
+}
+
+p,
+a {
+  font-size: 30px;
+  font-weight: 300;
+}
+
+pre {
+  margin-top: 30px;
+}

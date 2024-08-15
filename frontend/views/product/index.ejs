@@ -10,28 +10,32 @@
     <section id="product">
       <div id="product-images">
         <% if (product.photos) product.photos.forEach((photo, index) => { %>
-          
-          <img class="product-image<%= index == 0 ? " active" : "" %>" src="/static<%= photo %>" alt="<%= product.title %>">
+        <img class="product-image<%= index == 0 ? " active" : "" %>" src="/static<%= photo %>" alt="<%= product.title %>">
+        <% }) %>
+        <div id="mini-photos-container">
+          <% if (product.photos) product.photos.forEach((photo, index) => { %>
+            <img class="product-mini-image<%= index == 0 ? " active" : "" %>" src="/static<%= photo %>" alt="<%= product.title %>">
           <% }) %>
         </div>
-        <div id="product-info">
-          <p id="product-title"><%= product.title %></p>
-          <p id="product-desc"><%- product.pdesc %></p>
-          <br>
-          <h2 id="product-price"><%- product.price %></h2>
-          <% if (global_state.promo) { %>
-            <form action="/product" method="get" id="promo-container">
-              <label for="promo">Promo code</label>
-              <input type="text" name="promo" id="promo">
-              <p>Current Promo: <%- promo?.promo_title ?? '<i>None</i>' %>
-              </p>
-              <input type="text" name="id" value="<%= product.id %>" hidden>
-              <input type="submit" value="" hidden>
-            </form>
+      </div>
+      <div class="vrule"></div>
+      <div id="product-info">
+        <p id="product-title"><%= product.title %></p>
+        <h2 id="product-price"><%- product.price %></h2>
+        <button class="styled-button" id="product-buy-button" onclick="buyNow(<%= product.id %>)">Buy Now</button>
+        <br>
+        <% if (global_state.promo) { %>
+          <form action="/product" method="get" id="promo-container">
+            <p>Current Promo: <%- promo?.promo_title ?? '<i>None</i>' %></p>
+            <input class="styled-text-input" type="text" name="promo" id="promo" placeholder="Enter your promo code">
+            <input type="text" name="id" value="<%= product.id %>" hidden>
+            <input type="submit" value="" hidden>
+          </form>
           <% } %>
-          <button id="product-buy-button" onclick="buyNow(id=<%= product.id %>)">Buy Now</button>
-        </div>
-      </section>
-        <script src="/static/js/buynow.js"></script>
-      </body>
+          <p id="product-desc"><%- product.pdesc %></p>
+      </div>
+    </section>
+    <script src="/static/js/buynow.js"></script>
+    <script src="/static/js/product-showcase.js"></script>
+  </body>
 </html>

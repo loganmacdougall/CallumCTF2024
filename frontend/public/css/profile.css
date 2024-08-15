@@ -1,5 +1,41 @@
-#profile_picture {
+#profile {
+  padding: 40px;
+}
+
+#profile-sides {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#profile-picture {
   width: 200px;
   height: 200px;
-  border-radius: 50%;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#profile-title {
+  margin: 0;
+}
+
+#profile-info {
+  width: 100%
+}
+
+#profile-fullname,
+#profile-username:where(.no-fullname) {
+  margin: 0;
+}
+
+#profile-username:where(:not(.no-fullname)) {
+  margin: 0px;
+  margin-top: -4px;
+  font-size: 24px;
+  color: #9B9B9B;
+}
+
+#profile-username::before {
+  content: '@';
 }

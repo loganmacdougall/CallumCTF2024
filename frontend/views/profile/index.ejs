@@ -7,9 +7,20 @@
 </head>
 <body>
     <%- include('../header.ejs') %>
-    <img id="profile_picture" src="/static<%= user.profile_picture ?? "/media/profiles/empty.webp" %>" alt="">
-    <h1 id="profile_username"><%= user.username %></h1>
-    <h2 id="profile_title"><%= user.title ?? "Untitled" %></h2>
-    <p id="profile_desc"><%- user.udesc ?? "<i>No Description</i>" %></p>
+    <section id="profile">
+      <div id="profile-sides">
+        <div id="profile-picture-container">
+          <img id="profile-picture" src="/static<%= user.profile_picture ?? "/media/profiles/empty.webp" %>" alt="<%= user.username %> profile picture">
+          <h2 id="profile-title"><%= user.title ?? "Untitled" %></h2>
+        </div>
+        <div id="profile-info">
+          <% if (user.fullname) { %>
+          <h1 id="profile-fullname"><%= user.fullname %></h1>
+          <% } %>
+          <h1 class="<%= user.fullname ? "" : " no-fullname" %>" id="profile-username"><%= user.username %></h1>
+          <p id="profile-desc"><%- user.udesc ?? "<i>No Description</i>" %></p>
+        </div>
+      </div>
+    </section>
 </body>
 </html>

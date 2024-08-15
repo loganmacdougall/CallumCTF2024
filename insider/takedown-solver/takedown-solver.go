@@ -22,7 +22,7 @@ func main() {
 		return
 	}
 
-	fmt.Fprintf(conn, "takedown\n")
+	fmt.Fprintf(conn, "initiate_takedown\n")
 
 	_, err = conn.Read(data)
 	if err != nil {

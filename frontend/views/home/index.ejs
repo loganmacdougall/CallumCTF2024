@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
   <%- include('../metadata.ejs') %>
+  <link rel="stylesheet" href="/static/css/home.css">
   <title>M1337 Designs</title>
 </head>
 <body>
     <%- include('../header.ejs') %>
-    <h1>
-      Designs from programmers, for programmers
-    </h1>
-    <a href="/shop">Start Shopping</a>
+    <section>
+      <div id="header-container">
+        <h1 id="header1">Clothing brand</h1>
+        <h1 id="header2">designed for</h1>
+        <h1 id="header3">programmers</h1>
+      </div>
+      <a class="styled-button" href="/shop">Shop Now</a>
+    </section>
 </body>
 </html>

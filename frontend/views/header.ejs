@@ -1,13 +1,15 @@
 <header>
-  <a href="/"><h2>M1337</h2></a>
-  <form action="/shop" method="GET">
-    <input name="search" type="text" placeholder="Search">
-  </form>
-  <% if (!session.user_id) { %>
-  <a href="/login">Login</a>
-  <% } else { %>
-  <p><%= session.user_username %></p>
-  <a href="/profile">Profile</a>
-  <a href="/login">Logout</a>
-  <% } %>
+  <div id="header-content">
+    <a id="header-logo-link" href="/">M1337</a>
+    <form action="/shop" method="GET">
+      <input class="styled-text-input" name="search" type="text" placeholder="Search our selection">
+    </form>
+    <% if (!session.user_id) { %>
+    <a href="/login">Login</a>
+    <% } else { %>
+    <a href="/profile"><%= session.user_username %></a>
+    <a href="/login">Logout</a>
+    <% } %>
+  </div>
+  <hr>
 </header>

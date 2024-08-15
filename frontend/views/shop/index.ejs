@@ -11,12 +11,14 @@
   <% products.forEach((product) => { %>
     <a class="product-container" href="/product?id=<%= product.id %>">
       <img class="product-image" src="/static<%= product.photos[0] %>" alt="<%= product.title %>">
-      <p class="product-title"><%= product.title %></p>
-      <p class="product-price"><strong>$<%= product.price %></strong></p>
+      <div class="product-title-container">
+        <p class="product-title"><%= product.title %></p>
+      </div>
+      <p class="product-price">$<%= product.price %></p>
     </a>
   <% }) %>
   <% if (products.length === 0) { %>
-    <p>No items found</p>
+    <p id="noitems-text">No items found</p>
   <% } %>
   </section>
 </body>

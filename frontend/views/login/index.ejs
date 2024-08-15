@@ -6,17 +6,14 @@
   <title>M1337 Login</title>
 </head>
 <body>
-  <%- include('../header.ejs') %>
   <div id="login-container">
-    <h2>Login</h2>
+    <a id="logo" href="/">M1337</a>
     <form id="login-form" action="" method="POST" onsubmit="login()">
-      <label for="username">Username</label>
-      <input id="username-input" name="username" type="text">
-      <label for="password">Password</label>
-      <input id="password-input" autocomplete name="password" type="password">
-      <input value="Login" type="submit">
+      <p id="error-message"></p>
+      <input class="styled-text-input" id="username-input" name="username" placeholder="Username" type="text">
+      <input class="styled-text-input" id="password-input" autocomplete name="password" placeholder="Password" type="password">
+      <input class="styled-button" id="login-button" value="Login" type="submit">
     </form>
-    <p id="error-message"></p>
   </div>
   <script src="/static/js/login.js"></script>
 </body>

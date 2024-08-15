@@ -8,8 +8,8 @@ const app = express()
 const port = 3000
 
 const global_state = {
-  promo: false,
-  guns: true,
+  promo: true,
+  guns: false,
   seized: false
 }
 
@@ -74,7 +74,8 @@ app.get('/product', async (req, res) => {
       title: "On the Inside",
       price: 1199.99,
       pdesc: "Get access to hardware and communication channels exclusive to those on the inside",
-      photos: ["/media/products/handshake.webp"]
+      photos: ["/media/products/business-shaking-hands.jpg", "/media/products/handshake.webp",
+        "/media/products/agreement-shake-hands.png", "/media/products/signed-and-shake.jpg"]
     }
   } else {
     product = await conn.getProduct(id, max_photo=null, guns=global_state.guns)
@@ -111,6 +112,11 @@ app.post('/buynow', async (req, res) => {
     return res.sendStatus('404')
   }
 
+  req.session.purchase_history.push(req.body.id)
+  while (req.session.purchase_history.length > 5) {
+    req.session.purchase_history.shift()
+  }
+
   res.sendStatus('200')
 })
 
@@ -118,6 +124,7 @@ app.get('/login', (req, res) => {
   if (seized(res)) return
   req.session.user_id = undefined;
   req.session.user_username = undefined;
+  req.session.purchase_history = undefined
 
   res.render('login', {session: req.session, status: "", global_state: global_state})
 })
@@ -144,6 +151,7 @@ app.post('/login', async (req, res) => {
 
   req.session.user_id = id;
   req.session.user_username = username;
+  req.session.purchase_history = []
 
   res.sendStatus(200)
 })

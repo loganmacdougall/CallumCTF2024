@@ -79,6 +79,7 @@ func handleConnection(conn net.Conn) {
 		go unlockWebserverFeature("promo")
 	case "truth{Str@Ck_CRacK3d_R3Ad_Ev3ry^h1ng!$}":
 		conn.Write([]byte("https://youtube.com\n"))
+		canTakedown = true
 		go unlockWebserverFeature("guns")
 	case "minus10", "minus50":
 		conn.Write([]byte("I don't need your coupons\n"))
