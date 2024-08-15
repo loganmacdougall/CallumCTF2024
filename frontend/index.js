@@ -153,7 +153,7 @@ app.post('/login', async (req, res) => {
   req.session.user_username = username;
   req.session.purchase_history = []
 
-  res.sendStatus(200)
+  return res.status(200).send(`${id}`)
 })
 
 app.get('/profile', async (req, res) => {
