@@ -36,14 +36,18 @@ async function getProducts(max_photos=null, search=null, guns=false) {
   else search = search.replace("!", "!!").replace("%", "!%").replace("_", "!_").replace("[", "![");
   search = '%' + search + '%'
 
-  const conn = await (guns ? gunPool.getConnection() : pool.getConnection());
+  let products
+  let conn
+  const prodPool = guns ? gunPool : pool
 
   try {
+    let conn = await prodPool.getConnection();
+    
     let photos;
 
-    const [products, _] = await conn.query(products_search_query, [search])
-    const productDict = products.map(p => p.id).reduce((acc, key, index) => {
-      acc[key] = products[index];
+    let [productsRes, _] = await conn.query(products_search_query, [search])
+    const productDict = productsRes.map(p => p.id).reduce((acc, key, index) => {
+      acc[key] = productsRes[index];
       acc[key].photos = []
       return acc;
     }, {});
@@ -62,59 +66,70 @@ async function getProducts(max_photos=null, search=null, guns=false) {
       }
     })
 
-    pool.releaseConnection(conn);
-
-    return Object.values(productDict)
+    products = Object.values(productDict)
   } catch (err) {
-
-    pool.releaseConnection(conn);
     console.log(err)
-
-    return []
+    products = []
+  } finally {
+    if (conn) {
+      prodPool.releaseConnection(conn);
+    }
   }
+
+  return products
 }
 
 async function getProduct(product_id, max_photos=null, guns=true) {
-  const conn = await (guns ? gunPool.getConnection() : pool.getConnection());
+  
+  let product;
+  let conn
+  const prodPool = guns ? gunPool : pool
 
   try {
+    conn = await prodPool.getConnection();
+    
     let photos = [];
 
-    const [products, _] = await conn.execute(product_byId_query, [product_id])
-    if (products.length == 0) {
-      return {}
-    }
-    const product = products[0]
-    product.photos = []
-
-    if (max_photos != null) {
-      const [rows, _] = await conn.execute(images_byId_maxImages_query, [product_id, max_photos])
-      photos = rows
+    const [productsRes, _] = await conn.execute(product_byId_query, [product_id])
+    if (productsRes.length == 0) {
+      product = {}
     } else {
-      const [rows, _] = await conn.execute(images_byId_query, [product_id])
-      photos = rows
+      product = productsRes[0]
+      product.photos = []
+  
+      if (max_photos != null) {
+        const [rows, _] = await conn.execute(images_byId_maxImages_query, [product_id, max_photos])
+        photos = rows
+      } else {
+        const [rows, _] = await conn.execute(images_byId_query, [product_id])
+        photos = rows
+      }
+      
+      photos.forEach(photo => {
+        product.photos.push(photo.filepath)
+      })
     }
-    
-    photos.forEach(photo => {
-      product.photos.push(photo.filepath)
-    })
 
-    pool.releaseConnection(conn);
-
-    return product
   } catch (err) {
-    pool.releaseConnection(conn);
     console.log(err)
-
-    return null
+    product = null
+  } finally {
+    if (conn) {
+      prodPool.releaseConnection(conn);
+    }
   }
+
+  return product
 }
 
 async function getUserId(username, password) {
   
-  const conn = await pool.getConnection();
-  
+  let userId
+  let conn
+
   try {
+    conn = await pool.getConnection();
+
     const hashed_password = md5(password).toString()
     let query = `SELECT id FROM user_profile WHERE username = '${username}' and hashed_password = '${hashed_password}' LIMIT 1;`
     
@@ -122,45 +137,56 @@ async function getUserId(username, password) {
 
     pool.releaseConnection(conn);
 
-    return rows?.[0]?.id ?? -1
+    userId = rows?.[0]?.id ?? -1
   } catch (err) {
-    pool.releaseConnection(conn);
-    
-    return null
+    userId = null
+  } finally {
+    if (conn) {
+      pool.releaseConnection(conn);
+    }
   }
+
+  return userId
 }
 
 async function getUser(id) {
-  const conn = await pool.getConnection();
   
+  let user
+  let conn
+
   try {  
+    conn = await pool.getConnection();
     const [rows, _] = await conn.query(user_byId_query, [id])
 
-    pool.releaseConnection(conn);
-
-    return rows?.[0] ?? {}
+    user = rows?.[0] ?? {}
   } catch (err) {
     console.log(err)
+    user = {}
+  } finally {
     pool.releaseConnection(conn);
-    
-    return {}
   }
+
+  return user
 }
 
-async function getPromo(code) {
-  const conn = await pool.getConnection();
-  let promo = {}
+async function getPromo(code) {  
+  let promo
+  let conn
 
   try {
+    conn = await pool.getConnection();
     const [rows, _] = await conn.query(promo_byCode_query, [code])
 
     promo = rows?.[0]
-
   } catch (err) {
     console.log(err)
+    promo = {}
+  } finally {
+    if (conn) {
+      pool.releaseConnection(conn)
+    }
   }
 
-  pool.releaseConnection(conn)
   return promo
 }
 
