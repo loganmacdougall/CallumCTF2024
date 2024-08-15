@@ -119,7 +119,7 @@ VALUES ('henry_clark', 'Henry Clark', 'c4ca4238a0b943820dcc509a6f75849b', 'Hi, I
 
 # Inside man
 INSERT INTO user_profile (username, hashed_password, udesc, title)
-VALUES ("CM", "286ba48ca4f45dab999e3609fcf562dc", "You will receive instructions from me here<br>https://youtube.com", "hidden");
+VALUES ("CM", "286ba48ca4f45dab999e3609fcf562dc", "You will receive instructions from me here<br>https://youtu.be/L6A3nHOlI-4", "hidden");
 
 INSERT INTO promo VALUES ("minus10", "DISCOUNT 10", "10% Discount");
 INSERT INTO promo VALUES ("minus50", "DISCOUNT 50", "50% Discount");
