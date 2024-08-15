@@ -75,10 +75,10 @@ func handleConnection(conn net.Conn) {
 	case "truth{example}":
 		conn.Write([]byte("That's just an example truth, give me something real next time\n"))
 	case "truth{all_your_db_is_belong_to_us}":
-		conn.Write([]byte("https://youtu.be/agGqr_wuyt8\n"))
+		conn.Write([]byte("https://youtu.be/evOJ5JZVmj0\n"))
 		go unlockWebserverFeature("promo")
 	case "truth{Str@Ck_CRacK3d_R3Ad_Ev3ry^h1ng!$}":
-		conn.Write([]byte("https://youtu.be/NXsjYt_SaLM\n"))
+		conn.Write([]byte("https://youtu.be/Bp6PFaw7XC8\n"))
 		canTakedown = true
 		go unlockWebserverFeature("guns")
 	case "minus10", "minus50":
