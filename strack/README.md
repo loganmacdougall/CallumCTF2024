@@ -3,7 +3,7 @@
 
 ### Overview
 
-in STRACT, we start each program with an empty stack of memory and each instruction is either a function name, number, or string (we'll talk more about strings later). A function will manipulate the stack in some way, and a number will add a 4-byte cell to the stack and write the number into it. The code is a series of instruction separated by a space or newline. The program will execute instructions left to right, top to bottom until the instruction pointer goes past the last instruction or before the first instruction, ending the program.
+in STRACT, we start each program with an empty stack of memory, an instruction pointer starting 0, and a list of instructions, either being a function name, number, or string (we'll talk more about strings later). A function will manipulate the stack in some way, and a number will push entered number to the stack. The code is a series of instruction separated by a space or newline. The program will execute instructions left to right, top to bottom, increasing the instruction pointer by 1 each time (pointing to the next  instruction) until the instruction pointer goes past the last instruction or before the first instruction, ending the program.
 
 ```
 1 3 5 -> | 1 | 3 | 5 |
