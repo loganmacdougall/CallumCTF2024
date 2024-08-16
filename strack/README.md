@@ -3,7 +3,7 @@
 
 ### Overview
 
-in STRACT, we start each program with an empty stack and each instruction is either a function name, number, or string (we'll talk more about strings later). A function will manipulate the stack in some way, and a number will add a 4-byte cell to the stack and write the number into it. The code is a series of instruction seprated by a space or newline. The program will execute instructions left to right until the instruction pointer goes past the last instruction, ending the program.
+in STRACT, we start each program with an empty stack of memory and each instruction is either a function name, number, or string (we'll talk more about strings later). A function will manipulate the stack in some way, and a number will add a 4-byte cell to the stack and write the number into it. The code is a series of instruction separated by a space or newline. The program will execute instructions left to right, top to bottom until the instruction pointer goes past the last instruction or before the first instruction, ending the program.
 
 ```
 1 3 5 -> | 1 | 3 | 5 |
@@ -84,9 +84,8 @@ To print a string, you can call the function PRINT, which will consume values on
 
 CJUMP (Conditional Jump) is the sole way of doing both conditionals and loops. CJUMP takes 2 arguments, first being the jump offset (forwards or backwards with negative numbers), and second being the conditional value. If the conditional value is 0 no jump occurs. If the conditional value is any other value, the instruction pointer be offset by the jump offset in the first argument. If the jump offset goes outside the bounds of the program, the program will end.
 ```
-'A' 2 CJUMP 'B' PRINT -> | -> output: 'A'
+'A' 1 2 CJUMP 'B' PRINT -> | -> output: 'A'
 'A' 0 2 CJUMP 'B' PRINT -> | 4259840 (\0A\0\0) | -> output: 'B'
-
 ```
 
 ### DUP and POP
