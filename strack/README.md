@@ -84,8 +84,8 @@ To print a string, you can call the function PRINT, which will consume values on
 
 CJUMP (Conditional Jump) is the sole way of doing both conditionals and loops. CJUMP takes 2 arguments, first being the jump offset (forwards or backwards with negative numbers), and second being the conditional value. If the conditional value is 0 no jump occurs. If the conditional value is any other value, the instruction pointer be offset by the jump offset in the first argument. If the jump offset goes outside the bounds of the program, the program will end.
 ```
-'A' 1 2 CJUMP 'B' PRINT -> | -> output: 'A'
-'A' 0 2 CJUMP 'B' PRINT -> | 4259840 (\0A\0\0) | -> output: 'B'
+"A" 1 2 CJUMP "B" PRINT -> | -> output: "A"
+"A" 0 2 CJUMP "B" PRINT -> | 4259840 (\0A\0\0) | -> output: "B"
 ```
 
 ### DUP and POP
@@ -93,11 +93,11 @@ CJUMP (Conditional Jump) is the sole way of doing both conditionals and loops. C
 DUP and POP are the main ways of getting access to values in the stack aren't on the top of the stack. DUP takes 1 argument, which is how many cells to duplicate, and POP takes 1 argument, which is how many cells to pop off the stack. In both of these functions, the first argument is not counted to the total of cells to duplicate/pop. DUP and POP are very helpful for reading values that are anywhere in the stack as long as you know the offset from the top of the stack.
 
 ```
-'H' 'e' 'l' 'o' -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) |
-'H' 'e' 'l' 'o' 4 DUP -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) |
-'H' 'e' 'l' 'o' 4 DUP 3 POP -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) | 4718592 (\0H\0\0) |
-'H' 'e' 'l' 'o' 4 DUP 3 POP PRINT -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) | -> output: H
-'H' 'e' 'l' 'o' 4 DUP 3 POP PRINT 4 DUP 2 POP PRINT 1 POP 4 DUP 1 POP 1 DUP PRINT PRINT 2 POP 4 DUP PRINT 7 POP -> | -> output: Hello
+"H" "e" "l" "o" -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) |
+"H" "e" "l" "o" 4 DUP -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) |
+"H" "e" "l" "o" 4 DUP 3 POP -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) | 4718592 (\0H\0\0) |
+"H" "e" "l" "o" 4 DUP 3 POP PRINT -> | 4718592 (\0H\0\0) | 6619136 (\0e\0\0) | 7077888 (\0l\0\0) | 7274496 (\0o\0\0) | -> output: H
+"H" "e" "l" "o" 4 DUP 3 POP PRINT 4 DUP 2 POP PRINT 1 POP 4 DUP 1 POP 1 DUP PRINT PRINT 2 POP 4 DUP PRINT 7 POP -> | -> output: Hello
 ```
 
 ### List of Functions
