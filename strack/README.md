@@ -114,7 +114,8 @@ Pushes `n1 * n2` to the stack
 
 n2 n1 MOD:
 Pushes `n2 modulos n1` to the stack
-Note that the sign(+/-) of the result copies the sign of `n1`
+In the case of negative arguments you should just copy the sign of `n2`
+This would look like `abs(n2) % abs(n1) * sign(n2)`
 
 n2 n1 RSFT:
 Pushes `n2 >> n1` to the stack (right shift)

@@ -11,7 +11,7 @@ import (
 )
 
 var pointer = 0
-var stack = []int{}
+var stack = []int32{}
 var currInsDebug string
 var runmode string
 
@@ -68,7 +68,11 @@ func main() {
 				panic(err)
 			}
 
-			stack = append(stack, num)
+			if num > 2147483647 || num < -2147483648 {
+				panic(fmt.Sprintf("Pusing number %d which doesn't fall within the range of an int32\n", num))
+			}
+
+			stack = append(stack, int32(num))
 		} else {
 			handleFunction(instructions)
 		}
@@ -160,7 +164,7 @@ func pushStringToStack(str string) {
 		num = num<<8 + int(byteArr[i+2])
 		num = num<<8 + int(byteArr[i+3])
 
-		stack = append(stack, num)
+		stack = append(stack, int32(num))
 	}
 }
 
@@ -190,13 +194,13 @@ func printFromStack() {
 	}
 }
 
-func consume(num int) []int {
+func consume(num int) []int32 {
 	if len(stack) < num {
 		fmt.Printf("\nTried consuming %d cells when there's only %d cells in the stack\n", num, len(stack))
 		dump()
 		os.Exit(22)
 	}
-	args := stack[len(stack)-num : len(stack)]
+	args := stack[len(stack)-num:]
 	stack = stack[:len(stack)-num]
 
 	slices.Reverse(args)
@@ -210,11 +214,11 @@ func handleFunction(instructions []string) {
 	switch currIns {
 	case "DUP":
 		args := consume(1)
-		stack = append(stack, stack[len(stack)-args[0]:len(stack)]...)
+		stack = append(stack, stack[len(stack)-int(args[0]):]...)
 
 	case "POP":
 		args := consume(1)
-		stack = stack[:len(stack)-args[0]]
+		stack = stack[:len(stack)-int(args[0])]
 
 	case "PRINT":
 		printFromStack()
@@ -245,7 +249,7 @@ func handleFunction(instructions []string) {
 
 	case "MORE":
 		args := consume(2)
-		value := 1
+		value := int32(1)
 		if args[0] <= args[1] {
 			value = 0
 		}
@@ -253,7 +257,7 @@ func handleFunction(instructions []string) {
 
 	case "LESS":
 		args := consume(2)
-		value := 1
+		value := int32(1)
 		if args[0] >= args[1] {
 			value = 0
 		}
@@ -261,7 +265,7 @@ func handleFunction(instructions []string) {
 
 	case "EQ":
 		args := consume(2)
-		value := 1
+		value := int32(1)
 		if args[0] != args[1] {
 			value = 0
 		}
@@ -269,7 +273,7 @@ func handleFunction(instructions []string) {
 
 	case "NOT":
 		args := consume(1)
-		value := 0
+		value := int32(0)
 		if args[0] == 0 {
 			value = 1
 		}
@@ -289,7 +293,7 @@ func handleFunction(instructions []string) {
 
 	case "INV":
 		args := consume(1)
-		stack = append(stack, args[0]^0xffffffff)
+		stack = append(stack, args[0]^int32(-1))
 
 	case "INTSTRING":
 		args := consume(1)
@@ -298,7 +302,7 @@ func handleFunction(instructions []string) {
 	case "CJUMP":
 		args := consume(2)
 		if args[1] != 0 {
-			pointer += args[0] - 1
+			pointer += int(args[0]) - 1
 		}
 
 	default:
@@ -308,7 +312,7 @@ func handleFunction(instructions []string) {
 	}
 }
 
-func intToDebugString(num int) string {
+func intToDebugString(num int32) string {
 	dStr := ""
 	lastByte := byte(0)
 	sameByteCount := 0
