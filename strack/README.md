@@ -156,7 +156,7 @@ PRINT [See Section on Strings](#CJUMP)
 
 n1 INTSTRING:
 pushes the number n1 as a string to the stack
-keep in mind that number are signed and must be printed as such
+keep in mind that number are signed and should be represented as such
 ```
 # These 2 programs are equivalent
 "1234567" -> | 3618357 (\0765) | 875770417 (4321) |
