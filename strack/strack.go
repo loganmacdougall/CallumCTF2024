@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 	"slices"
@@ -181,7 +182,7 @@ func printFromStack() {
 			}
 			cell = cell >> 8
 		}
-		fmt.Print(string(msg))
+		fmt.Print(string(bytes.Trim(msg, "\x00")))
 	}
 
 	if runmode == "step" || runmode == "info" {

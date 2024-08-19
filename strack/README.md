@@ -134,7 +134,7 @@ n2 n1 XOR:
 Pushes `n1 ^ n2` to the stack
 
 n1 INV:
-Pushes `~n1` to the stack (flips all the bits)
+Pushes `n1^0xffffffff` to the stack (flips all the bits)
 
 #### CONDITIONALS
 n2 n1 MORE:
