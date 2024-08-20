@@ -220,7 +220,7 @@ process.on('SIGTERM', () => {
 function seized(res) {
   
   if ( global_state.seized == true) {
-    res.render('csci')
+    res.render('csci', {steamkey: process.env.STEAMKEY ?? "XXXX-XXXX-XXXX-XXXX"})
     return true
   }
   return false

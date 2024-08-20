@@ -8,6 +8,7 @@ RUN npm install
 COPY . .
 
 RUN ["mv", "docker.env", ".env"]
+RUN ["echo", "STEAMKEY=${STEAMKEY:=XXXX-XXXX-XXXX-XXXX}", ">>", ".env"]
 
 CMD [ "node", "--env-file=.env", "index.js" ]
 
