@@ -81,6 +81,9 @@ func handleConnection(conn net.Conn) {
 		conn.Write([]byte("https://youtu.be/Bp6PFaw7XC8\n"))
 		canTakedown = true
 		go unlockWebserverFeature("guns")
+	case "truth{L@dIes_anD_g3nTlemEn_w3_g0T_h1m}":
+		conn.Write([]byte("The website has been seized. thank you for your service\n"))
+		go unlockWebserverFeature("seized")
 	case "minus10", "minus50":
 		conn.Write([]byte("I don't need your coupons\n"))
 	case "initiate_takedown":
@@ -167,8 +170,8 @@ func handleTakedown(conn net.Conn) {
 	}
 
 	if passed {
-		conn.Write([]byte("Good work - the website has been successfully seized\n"))
-		go unlockWebserverFeature("seized")
+		conn.Write([]byte("Good work - we now have everything we need to take them down\nenter this truth and finish the job\n\ntruth{L@dIes_anD_g3nTlemEn_w3_g0T_h1m}\n"))
+
 	} else {
 		conn.Write([]byte("Inncorect, feel free to come back and try again\n"))
 	}
