@@ -36,12 +36,11 @@ func main() {
 	for level := 1; true; level++ {
 		count := 0
 		complete_data = ""
-		finished := false
 
 		for {
 			count, err = conn.Read(data)
 			if err != nil {
-				fmt.Println("End of message, hopefully all challenges are completed\nPrinting received message:\n")
+				fmt.Print("End of message, hopefully all challenges are completed\nPrinting received message:\n\n")
 				fmt.Println(complete_data)
 				conn.Close()
 				return
@@ -54,10 +53,6 @@ func main() {
 			} else {
 				fmt.Println("Last message didn't contain \"END\", reading more")
 			}
-		}
-
-		if finished {
-			break
 		}
 
 		fmt.Print(complete_data)
