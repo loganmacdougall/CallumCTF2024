@@ -6,7 +6,7 @@ services:
     depends_on:
       - database
     environment:
-      STEAMKEY: XXXX-1234-XXXX-5678
+      STEAMKEY: XXXX-1234-XXXX-5678    1234-XXXX-5678-XXXX
   database:
     image: mysql
     ports:
